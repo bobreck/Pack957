@@ -1,1 +1,0 @@
---debug --aot=mtriple=armv7-darwin,full,static,asmonly,direct-icalls,no-direct-calls,iphone-abi,outfile=/mscorlib.dll.armv7.s "/Users/bobreck/Documents/iOSDevelopment/Pack957/Pack957/bin/iPhone/Debug/Pack957.app/mscorlib.dll"
