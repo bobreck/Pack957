@@ -40,13 +40,21 @@ namespace Pack957
 			});
 		}
 		
+		public void FlyoutNavigationHandler(object sender, EventArgs e)
+		{
+			Pack957ViewController myFlyOutController = new Pack957ViewController();
+			myFlyOutController.ToggleMenuView();
+		}
+		
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);
-			folder = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
-			
+
 			try
 			{
+				this.NavigationItem.SetLeftBarButtonItem(new UIBarButtonItem(UIImage.FromBundle("icons/399-list1"), UIBarButtonItemStyle.Plain, FlyoutNavigationHandler), true);
+
+				folder = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
 				conn = new SQLiteAsyncConnection (System.IO.Path.Combine (folder, "CubScouts.db"));
 				if (!myDB.TableExists("CubScout")) {
 					conn.CreateTableAsync<CubScout>().ContinueWith (t => {

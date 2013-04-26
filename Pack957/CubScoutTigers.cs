@@ -49,7 +49,6 @@ namespace Pack957
 			myFlyOutController.ToggleMenuView();
 		}
 
-
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);

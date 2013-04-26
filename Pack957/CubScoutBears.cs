@@ -42,9 +42,17 @@ namespace Pack957
 			});
 		}
 
+		public void FlyoutNavigationHandler(object sender, EventArgs e)
+		{
+			Pack957ViewController myFlyOutController = new Pack957ViewController();
+			myFlyOutController.ToggleMenuView();
+		}
+
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);
+			this.NavigationItem.SetLeftBarButtonItem(new UIBarButtonItem(UIImage.FromBundle("icons/399-list1"), UIBarButtonItemStyle.Plain, FlyoutNavigationHandler), true);
+
 			try 
 			{
 				folder = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
