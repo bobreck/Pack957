@@ -1,0 +1,8 @@
+bin
+obj
+*.userprefs
+*.suo
+*.DS_Store
+*.ide
+*.designer.cs
+!Resources.Designer.cs

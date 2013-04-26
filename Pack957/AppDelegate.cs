@@ -18,7 +18,8 @@ namespace Pack957
 		private readonly SQLiteAsyncConnection db = new SQLiteAsyncConnection (Path.Combine (Environment.GetFolderPath (Environment.SpecialFolder.Personal), "CubScouts.db"));
 
 		UIWindow window;
-		Pack957ViewController viewController;
+		public Pack957ViewController ViewController;
+		public static AppDelegate Current;
 
 		//
 		// This method is invoked when the application has loaded and is ready to run. In this 
@@ -29,12 +30,13 @@ namespace Pack957
 		//
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
+			Current = this;
 			db.CreateTableAsync<CubScout>().Wait();
 
 			window = new UIWindow (UIScreen.MainScreen.Bounds);
 			
-			viewController = new Pack957ViewController ();
-			window.RootViewController = viewController;
+			ViewController = new Pack957ViewController ();
+			window.RootViewController = ViewController;
 			window.MakeKeyAndVisible ();
 			
 			return true;
