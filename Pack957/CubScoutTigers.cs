@@ -46,7 +46,7 @@ namespace Pack957
 		public void FlyoutNavigationHandler(object sender, EventArgs e)
 		{
 			Pack957ViewController myFlyOutController = new Pack957ViewController();
-			myFlyOutController.ToggleMenuView();
+			myFlyOutController.showMenuView();
 		}
 
 		public override void ViewWillAppear (bool animated)

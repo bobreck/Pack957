@@ -11,8 +11,8 @@
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True">
-          <Node name="Pack957" expanded="True" selected="True" />
+        <State expanded="True" selected="True">
+          <Node name="Pack957" expanded="True" />
         </State>
       </Pad>
     </Pads>

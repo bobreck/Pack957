@@ -82,6 +82,12 @@ namespace Pack957
 			navigation.ToggleMenu();
 		}
 
+		public void showMenuView()
+		{
+			navigation = new FlyoutNavigationController();
+			navigation.ShowMenu();
+		}
+
 		class TaskPageController : DialogViewController
 		{
 			public TaskPageController (FlyoutNavigationController navigation, string title) : base (null)
