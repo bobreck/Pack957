@@ -26,6 +26,10 @@ namespace Pack957
 			base.ViewDidLoad ();
 			
 			this.NavigationBar.TintColor = UIColor.FromRGB(255,212,0);
+			UITextAttributes textAttr = new UITextAttributes();
+			textAttr.TextColor = UIColor.FromRGB(0,84,150);
+			//textAttr.TextShadowColor = UIColor.FromRGB(0,84,150);
+			this.NavigationBar.SetTitleTextAttributes(textAttr);
 			this.NavigationItem.Title = "Cub Scout Promise";
 			CubScoutPromise _vc = new CubScoutPromise();
 			this.PushViewController(_vc, true);

@@ -28,7 +28,7 @@ namespace Pack957
 			this.NavigationBar.TintColor = UIColor.FromRGB(255,212,0);
 			UITextAttributes textAttr = new UITextAttributes();
 			textAttr.TextColor = UIColor.FromRGB(0,84,150);
-			textAttr.TextShadowColor = UIColor.FromRGB(0,84,150);
+			//textAttr.TextShadowColor = UIColor.FromRGB(0,84,150);
 			this.NavigationBar.SetTitleTextAttributes(textAttr);
 			this.NavigationItem.Title = "Cub Scout Logos";
 			MoveLogos _vc = new MoveLogos();
