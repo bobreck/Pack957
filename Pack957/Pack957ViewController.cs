@@ -67,8 +67,6 @@ namespace Pack957
 				new CubScoutLawOfThePack(),
 				new CubScoutMotto(),
 			};
-
-			ToggleMenuView();
 		}
 
 		public override void ViewDidLoad ()
@@ -82,9 +80,8 @@ namespace Pack957
 			navigation.ToggleMenu();
 		}
 
-		public void showMenuView()
+		public void ShowMenuView()
 		{
-			navigation = new FlyoutNavigationController();
 			navigation.ShowMenu();
 		}
 
