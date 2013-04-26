@@ -22,6 +22,13 @@ namespace Pack957
 
 		}
 
+		public override void LoadView ()
+		{
+			base.LoadView ();
+			TableView.BackgroundView = null;
+			TableView.BackgroundColor = UIColor.FromPatternImage(UIImage.FromBundle("backgrounds/Pattern_Cloth"));
+		}
+
 		private void ReloadCubScouts(Section mySection)
 		{
 			conn = new SQLiteAsyncConnection (System.IO.Path.Combine (folder, "CubScouts.db"));

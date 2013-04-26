@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using SQLite;
+using System.Drawing;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
@@ -19,6 +20,13 @@ namespace Pack957
 
 		public CubScoutWeblos () : base (UITableViewStyle.Grouped, null)
 		{
+		}
+
+		public override void LoadView ()
+		{
+			base.LoadView ();
+			TableView.BackgroundView = null;
+			TableView.BackgroundColor = UIColor.FromPatternImage(UIImage.FromBundle("backgrounds/Pattern_Cloth"));
 		}
 
 		private void ReloadCubScouts(Section mySection)
@@ -81,7 +89,15 @@ namespace Pack957
 				
 				//Call the reload method to re-populate the list.
 				ReloadCubScouts(secCurrentScouts);
-				
+
+				//Setup text colors, etc.
+//				var headerAdd = new UILabel(new RectangleF(0,0,this.View.Bounds.Width-25,48)){
+//					Font = UIFont.BoldSystemFontOfSize (22),
+//					TextColor = UIColor.White,
+//					BackgroundColor = UIColor.Clear,
+//					Text = "Add"
+//				};
+
 				EntryElement fn;
 				EntryElement ln; 
 				EntryElement nn;

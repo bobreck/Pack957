@@ -93,6 +93,7 @@
     <Folder Include="Resources\" />
     <Folder Include="Resources\icons\" />
     <Folder Include="Resources\sounds\" />
+    <Folder Include="Resources\backgrounds\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -141,6 +142,22 @@
     <Compile Include="CubScoutWolves.cs" />
     <Compile Include="CubScoutBears.cs" />
     <Compile Include="CubScoutWeblos.cs" />
+    <Compile Include="MoveLogosNavigation.cs" />
+    <Compile Include="MoveLogosNavigation.designer.cs">
+      <DependentUpon>MoveLogosNavigation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CubScoutMottoNavigation.cs" />
+    <Compile Include="CubScoutMottoNavigation.designer.cs">
+      <DependentUpon>CubScoutMottoNavigation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CubScoutPromiseNavigation.cs" />
+    <Compile Include="CubScoutPromiseNavigation.designer.cs">
+      <DependentUpon>CubScoutPromiseNavigation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CubScoutLawOfThePackNavigation.cs" />
+    <Compile Include="CubScoutLawOfThePackNavigation.designer.cs">
+      <DependentUpon>CubScoutLawOfThePackNavigation.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Pack957ViewController.xib" />
@@ -152,6 +169,10 @@
     <InterfaceDefinition Include="WolfNavigation.xib" />
     <InterfaceDefinition Include="BearNavigation.xib" />
     <InterfaceDefinition Include="WebloNavigation.xib" />
+    <InterfaceDefinition Include="MoveLogosNavigation.xib" />
+    <InterfaceDefinition Include="CubScoutMottoNavigation.xib" />
+    <InterfaceDefinition Include="CubScoutPromiseNavigation.xib" />
+    <InterfaceDefinition Include="CubScoutLawOfThePackNavigation.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -197,6 +218,8 @@
     <BundleResource Include="Resources\sounds\Squish.mp3" />
     <BundleResource Include="Resources\sounds\tiger.mp3" />
     <BundleResource Include="Resources\sounds\wolf.mp3" />
+    <BundleResource Include="Resources\backgrounds\Pattern_Cloth.png" />
+    <BundleResource Include="Resources\backgrounds\Pattern_Cloth%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <ITunesArtwork Include="iTunesArtwork" />

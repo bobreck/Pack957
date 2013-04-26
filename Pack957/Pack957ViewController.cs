@@ -62,11 +62,13 @@ namespace Pack957
 				new WolfNavigation(),
 				new BearNavigation(),
 				new WebloNavigation(),
-				new MoveLogos(),
-				new CubScoutPromise(),
-				new CubScoutLawOfThePack(),
-				new CubScoutMotto(),
+				new MoveLogosNavigation(),
+				new CubScoutPromiseNavigation(),
+				new CubScoutLawOfThePackNavigation(),
+				new CubScoutMottoNavigation(),
 			};
+
+			ShowMenuView();
 		}
 
 		public override void ViewDidLoad ()

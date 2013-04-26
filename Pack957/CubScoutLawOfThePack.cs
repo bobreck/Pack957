@@ -20,12 +20,19 @@ namespace Pack957
 			
 			// Release any cached data, images, etc that aren't in use.
 		}
-		
+
+		public void FlyoutNavigationHandler(object sender, EventArgs e)
+		{
+			AppDelegate.Current.ViewController.ShowMenuView();
+		}
+
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
 			
-			base.ViewDidLoad ();
+			this.Title = "Law of the Pack";
+			this.NavigationItem.SetLeftBarButtonItem(new UIBarButtonItem(UIImage.FromBundle("icons/399-list1"), UIBarButtonItemStyle.Plain, FlyoutNavigationHandler), true);
+
 			this.View.BackgroundColor = UIColor.FromRGB(0,60,114);
 			UIScrollView myScroll = new UIScrollView(new RectangleF(0,0,this.View.Bounds.Width,this.View.Bounds.Height));
 			myScroll.UserInteractionEnabled = true;
