@@ -42,15 +42,15 @@ namespace Pack957
 			this.Title = "Cub Scout Logos";
 			this.NavigationItem.SetLeftBarButtonItem(new UIBarButtonItem(UIImage.FromBundle("icons/399-list1"), UIBarButtonItemStyle.Plain, FlyoutNavigationHandler), true);
 
-			imgCub = new UIImageView(new RectangleF(10,10,100,100));
-			imgCub.Image = UIImage.FromBundle("CubScouts100");
-			imgTiger = new UIImageView(new RectangleF(120,120,100,100));
+			imgTiger = new UIImageView(new RectangleF(10,10,100,100));
 			imgTiger.Image = UIImage.FromBundle("Tiger100");
-			imgWolf = new UIImageView(new RectangleF(230,230,100,100));
+			imgWolf = new UIImageView(new RectangleF(this.View.Bounds.Width-110,10,100,100));
 			imgWolf.Image = UIImage.FromBundle("wolf100");
-			imgBear = new UIImageView(new RectangleF(10,340,100,100));
+			imgCub = new UIImageView(new RectangleF(this.View.Bounds.Width/2-50,this.View.Bounds.Height/2-50,100,100));
+			imgCub.Image = UIImage.FromBundle("CubScouts100");
+			imgBear = new UIImageView(new RectangleF(10,this.View.Bounds.Height-110,100,100));
 			imgBear.Image = UIImage.FromBundle("bear100");
-			imgWeblo = new UIImageView(new RectangleF(120,340,100,100));
+			imgWeblo = new UIImageView(new RectangleF(this.View.Bounds.Width-110,this.View.Bounds.Height-110,100,100));
 			imgWeblo.Image = UIImage.FromBundle("weblos100");
 
 			this.View.AddSubview(imgCub);
