@@ -1,0 +1,27 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Pack957/Pack957ViewController.cs">
+    <Files>
+      <File FileName="Pack957/AppDelegate.cs" Line="1" Column="1" />
+      <File FileName="Pack957/CubScoutTigers.cs" Line="1" Column="1" />
+      <File FileName="Pack957/Pack957ViewController.cs" Line="82" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="Pack957" expanded="True">
+            <Node name="Resources" expanded="True">
+              <Node name="sounds" expanded="True" />
+            </Node>
+            <Node name="Pack957ViewController.cs" selected="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <AuthorInfo Name="Bob Reck" Email="bob.reck@outlook.com" Copyright="Bob Reck" Company="" Trademark="" />
+</Properties>
