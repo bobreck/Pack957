@@ -72,7 +72,7 @@ namespace Pack957
 				mediaFile = NSUrl.FromFilename("sounds/Squish.mp3");
 			}
 			var audioPlayer = AVAudioPlayer.FromUrl(mediaFile);
-			audioPlayer.FinishedPlaying += delegate { audioPlayer.Dispose(); };
+			//audioPlayer.FinishedPlaying += delegate { audioPlayer.Dispose(); };
 			audioPlayer.Play();
 		}
 

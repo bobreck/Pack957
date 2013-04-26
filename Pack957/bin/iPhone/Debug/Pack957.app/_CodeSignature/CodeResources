@@ -6,19 +6,19 @@
 	<dict>
 		<key>BearNavigation.nib</key>
 		<data>
-		4L+AXjcAIDjWm5UT8+akZ0K6vjQ=
+		jls7E4dcYiliMeB3rBIVuoJRHXg=
 		</data>
 		<key>CubScoutLawOfThePack.nib</key>
 		<data>
-		faiLJnU7gaiheebj5Kz9Bdd8Kiw=
+		Y24aKzpCKEdWcCNcUXcbv4oDonU=
 		</data>
 		<key>CubScoutMotto.nib</key>
 		<data>
-		vk9k7N+kvFF9aZpRZVR/8tCCmI0=
+		TIT+UsYLIr2WXsiDkQPrKl0D5iA=
 		</data>
 		<key>CubScoutPromise.nib</key>
 		<data>
-		hDpPtQef5GLMMu9L0p1w2uLoWRA=
+		1Fj8K8d6wdpiphddoAm9Y/QBobo=
 		</data>
 		<key>CubScouts100.png</key>
 		<data>
@@ -86,31 +86,31 @@
 		</data>
 		<key>MonoTouch.Dialog-1.dll</key>
 		<data>
-		x1ucP9ukkX6YTO1Vt60U6Pp/v+g=
+		pJfCt3RJkFfLRC8+ZAPA4E3h6S4=
 		</data>
 		<key>MonoTouch.Dialog-1.dll.mdb</key>
 		<data>
-		ZohC7U5Tj4VciGqo1mjfexESlmA=
+		8DKU6PCGfKb4WPZsNHAF2G8yhf8=
 		</data>
 		<key>MonoTouchDebugConfiguration.txt</key>
 		<data>
-		UtDABuxuXBgoHbZGQp4P4ADy1k0=
+		EPf+3/FYK3d9+VbtBptjXKM5ed4=
 		</data>
 		<key>MoveLogos.nib</key>
 		<data>
-		16JJztUi+krkjsZe9OswRvDw0oE=
+		koOCC2NpeKwSA7w/CmxQRKOeeVE=
 		</data>
 		<key>Pack957.exe</key>
 		<data>
-		0COAokbTUoRGjHLERmix+bNQ1lw=
+		kZTCbfIZwon7MCQCrD+KH/UcQuU=
 		</data>
 		<key>Pack957.exe.mdb</key>
 		<data>
-		HdxBpo66jMbi03iPWF3gVfJoF9U=
+		+vct+fg4FC7WpnkF2UUEC/tdFvE=
 		</data>
 		<key>Pack957ViewController.nib</key>
 		<data>
-		1a5edoDalUt2uTqK+KQjEAYaeus=
+		Rdk8z9N99ef2gLG1XJdtUbkNndA=
 		</data>
 		<key>PkgInfo</key>
 		<data>
@@ -126,27 +126,27 @@
 		</data>
 		<key>System.Core.dll</key>
 		<data>
-		Il9F8FUEmM7o50rbY0r2VN/eRhA=
+		WosyfyRpSHguSpD6raL4fC/pQSs=
 		</data>
 		<key>System.Core.dll.mdb</key>
 		<data>
-		6vNiFsunFxfMCcc35nw0iOSl5pU=
+		58Rl9jR7K5O5P6RosLmYNklYjeo=
 		</data>
 		<key>System.Json.dll</key>
 		<data>
-		okIgHK0utSJO5woqEw+4MKVDfy8=
+		a55NuIUApJBIwUOIkyI6KG72zCg=
 		</data>
 		<key>System.Json.dll.mdb</key>
 		<data>
-		A5lOkZj9j9Zy8XCqm3JUxkvWLeY=
+		YAuSafGivsLmvqK6Zsum55/M21w=
 		</data>
 		<key>System.dll</key>
 		<data>
-		TNncsWd0oPtGkUxGreX07sV8MaE=
+		lBHgJ9D1M2lvqfV6ZH9rNRVjZ0w=
 		</data>
 		<key>System.dll.mdb</key>
 		<data>
-		BtFrWDEN0qOpbqyqCttFgmJD3lI=
+		r+OR/VV72iVcnu8/v1kfSg4aRDw=
 		</data>
 		<key>Tiger100.png</key>
 		<data>
@@ -158,15 +158,15 @@
 		</data>
 		<key>TigerNavigation.nib</key>
 		<data>
-		wJC274vBsK03jmRdCQv3sKRKRtk=
+		kc8H8XcUJLiEjG4FC2LH7Nqikkw=
 		</data>
 		<key>WebloNavigation.nib</key>
 		<data>
-		BI6OTJWj05m673TEAXnXlE1QwfI=
+		dtaozkySuSwpuo7sPPD4o3tm4OM=
 		</data>
 		<key>WolfNavigation.nib</key>
 		<data>
-		vYguFO2dAPhEhY9TE4F3ixF2/A4=
+		/k4Lp9aZor2Gr90E744W5lIkMX8=
 		</data>
 		<key>bear100.png</key>
 		<data>
@@ -190,19 +190,35 @@
 		</data>
 		<key>monotouch.dll</key>
 		<data>
-		1DkfkQOrKUhdnJ4Zc9d/NNbBGM8=
+		RWhQ5bUvS0iRHBStIf0gPmiSC2Y=
 		</data>
 		<key>monotouch.dll.mdb</key>
 		<data>
-		ltnoxHudocGDS27MIKZ549bgPas=
+		v86beOL6caOQTv+HQi1oqFPwNIE=
 		</data>
 		<key>mscorlib.dll</key>
 		<data>
-		fn2D+CeNviyqtCZiHA5x5rieLDw=
+		rOSgwtxq5TWWejb3yXiM1TJZqVw=
 		</data>
 		<key>mscorlib.dll.mdb</key>
 		<data>
-		ohUuLB7/rqgSlaQ1JbN6ATn+Z9c=
+		un0KCprP/kas2bRKLwGZKNG4u9o=
+		</data>
+		<key>sounds/Squish.mp3</key>
+		<data>
+		TVnKNGx+eBeVE9up1h0alysPfzI=
+		</data>
+		<key>sounds/bear.mp3</key>
+		<data>
+		5JXXCok2lNmUjYqV7B8CAbRUt84=
+		</data>
+		<key>sounds/tiger.mp3</key>
+		<data>
+		KNfsVjgAqsM+7i/gRluZEWXu/2w=
+		</data>
+		<key>sounds/wolf.mp3</key>
+		<data>
+		3p47RO5rw11U5njqPgEFoONVz1U=
 		</data>
 		<key>weblos100.png</key>
 		<data>
