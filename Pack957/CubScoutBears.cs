@@ -1,6 +1,6 @@
-
 using System;
 using System.IO;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using SQLite;
@@ -16,9 +16,54 @@ namespace Pack957
 		string folder;
 		SQLiteAsyncConnection conn;
 		Section secCurrentScouts;
+		ViewScout _vsc;
+		UITableView scoutTable;
 
 		public CubScoutBears () : base (UITableViewStyle.Grouped, null)
 		{
+		}
+
+		public class CubScoutTableItemsGroup
+		{
+			public string Name {get; set;}
+			public string Footer {get; set;}
+			
+			public List<string> Items
+			{
+				get {return this._items; }
+				set {this._items = value; }
+			}				
+			protected List<string> _items = new List<string>();
+		}
+
+
+		public class scoutTableSource : UITableViewSource
+		{
+			protected string _cellIdentifier = "ScoutCell";
+			protected List<CubScoutTableItemsGroup> _tableItems;
+
+
+			public override int RowsInSection (UITableView tableview, int section)
+			{
+				return this._tableItems[section].Items.Count;
+			}
+
+			public override UITableViewCell GetCell (UITableView tableview, MonoTouch.Foundation.NSIndexPath indexPath)
+			{
+				UITableViewCell cell = tableview.DequeueReusableCell(this._cellIdentifier);
+				
+				if (cell == null)
+				{
+					cell = new UITableViewCell(UITableViewCellStyle.Subtitle, this._cellIdentifier);
+				}
+
+				if (cell.TextLabel.Text != "Add Scout")
+				{
+					cell.TextLabel.Text = this._tableItems[indexPath.Section].Items[indexPath.Row];
+					cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
+				}
+				return cell;
+			}
 		}
 
 		public override void LoadView ()
@@ -39,11 +84,20 @@ namespace Pack957
 					BeginInvokeOnMainThread(() => {
 						if (s.Nickname.Trim() != "")
 						{
-							mySection.Add(new StringElement(string.Format("{0} {1} ({2})", s.FirstName.Trim(), s.LastName.Trim(), s.Nickname.Trim())));
+							mySection.Add(new StringElement(string.Format("{0} {1} ({2})", s.FirstName.Trim(), s.LastName.Trim(), s.Nickname.Trim()), delegate {
+								_vsc = new ViewScout();
+								_vsc.ScoutName = string.Format("{0} {1}", s.FirstName.Trim(), s.LastName.Trim());
+								_vsc.NickName = s.Nickname.Trim();
+								this.NavigationController.PushViewController(_vsc, true);
+							}));
 						} 
 						else
 						{
-							mySection.Add(new StringElement(string.Format("{0} {1}", s.FirstName.Trim(), s.LastName.Trim())));
+							mySection.Add(new StringElement(string.Format("{0} {1}", s.FirstName.Trim(), s.LastName.Trim()), delegate {
+								_vsc = new ViewScout();
+								_vsc.ScoutName = string.Format("{0} {1}", s.FirstName.Trim(), s.LastName.Trim());
+								this.NavigationController.PushViewController(_vsc, true);
+							}));
 						}
 					});
 				}
@@ -59,6 +113,9 @@ namespace Pack957
 		{
 			base.ViewWillAppear (animated);
 			this.NavigationItem.SetLeftBarButtonItem(new UIBarButtonItem(UIImage.FromBundle("icons/399-list1"), UIBarButtonItemStyle.Plain, FlyoutNavigationHandler), true);
+			this.NavigationItem.SetRightBarButtonItem(new UIBarButtonItem(UIBarButtonSystemItem.Edit, delegate {
+				TableView.SetEditing(true,true);
+			}), true);
 
 			try 
 			{
@@ -69,7 +126,7 @@ namespace Pack957
 						Console.WriteLine ("Table created!");
 					});
 				}
-				
+
 				//Setup Map Types Radio Group
 				RadioGroup myScoutTypes = new RadioGroup("scoutTypes",2);
 				RadioElement rTiger = new RadioElement("Tiger","scoutTypes");
@@ -93,6 +150,11 @@ namespace Pack957
 				EntryElement ln; 
 				EntryElement nn;
 				RootElement st;
+				EntryElement mn;
+				EntryElement dn;
+				EntryElement ea;
+				EntryElement hp;
+				EntryElement cp;
 				Root = new RootElement ("Bears") {
 					new Section ("Add") {
 						new RootElement ("Add Scout") {
@@ -100,11 +162,19 @@ namespace Pack957
 								(fn = new EntryElement("First Name","First Name","")),
 								(ln = new EntryElement("Last Name","Last Name","")),
 								(nn = new EntryElement("Nickname","Nickname","")),
-								(st = new RootElement("Scout Types", myScoutTypes) {
+								(st = new RootElement("Den", myScoutTypes) {
 									myScoutTypesSection
 								}),
+								(mn = new EntryElement("Mom's Name","Mom's Name", "")),
+								(dn = new EntryElement("Dad's Name","Dad's Name", "")),
+								(ea = new EntryElement("Email Address","Email Address", "")),
+								(hp = new EntryElement("Home Phone", "(999) 999-9999", "")),
+								(cp = new EntryElement("Mobile Phone", "(999) 999-9999", "")),
 								new StringElement("Save",delegate {
-									CubScout newScout = new CubScout {FirstName = fn.Value.Trim(), LastName = ln.Value.Trim(), Nickname = nn.Value.Trim (), ScoutType = st.RadioSelected.ToString()};
+									CubScout newScout = new CubScout {FirstName = fn.Value.Trim(), LastName = ln.Value.Trim(), 
+										Nickname = nn.Value.Trim (), ScoutType = st.RadioSelected.ToString(), 
+										MomsName = mn.Value.Trim(), DadsName = dn.Value.Trim(), EmailAddress = ea.Value.Trim(),
+										HomePhone = hp.Value.Trim(), CellPhone = cp.Value.Trim()};
 									conn.InsertAsync (newScout).ContinueWith (t => {
 										Console.WriteLine ("New scout ID: {0}", newScout.Id);
 									});
@@ -112,6 +182,11 @@ namespace Pack957
 									ln.Value = "";
 									nn.Value = "";
 									st.RadioSelected = 2;
+									mn.Value = "";
+									dn.Value = "";
+									ea.Value = "";
+									hp.Value = "";
+									cp.Value = "";
 									this.NavigationController.PopViewControllerAnimated(true);
 								}),
 							},
@@ -119,6 +194,8 @@ namespace Pack957
 					},
 					secCurrentScouts,
 				};
+
+
 			}
 			catch (Exception ex)
 			{

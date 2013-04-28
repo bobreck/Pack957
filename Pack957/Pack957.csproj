@@ -158,6 +158,7 @@
     <Compile Include="CubScoutLawOfThePackNavigation.designer.cs">
       <DependentUpon>CubScoutLawOfThePackNavigation.cs</DependentUpon>
     </Compile>
+    <Compile Include="ViewScout.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Pack957ViewController.xib" />
@@ -220,6 +221,8 @@
     <BundleResource Include="Resources\sounds\wolf.mp3" />
     <BundleResource Include="Resources\backgrounds\Pattern_Cloth.png" />
     <BundleResource Include="Resources\backgrounds\Pattern_Cloth%402x.png" />
+    <BundleResource Include="Resources\icons\332-rotate.png" />
+    <BundleResource Include="Resources\icons\332-rotate%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <ITunesArtwork Include="iTunesArtwork" />

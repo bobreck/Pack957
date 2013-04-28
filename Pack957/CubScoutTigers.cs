@@ -93,6 +93,11 @@ namespace Pack957
 				EntryElement ln; 
 				EntryElement nn;
 				RootElement st;
+				EntryElement mn;
+				EntryElement dn;
+				EntryElement ea;
+				EntryElement hp;
+				EntryElement cp;
 				Root = new RootElement ("Tigers") {
 					new Section ("Add") {
 						new RootElement ("Add Scout") {
@@ -100,11 +105,19 @@ namespace Pack957
 								(fn = new EntryElement("First Name","First Name","")),
 								(ln = new EntryElement("Last Name","Last Name","")),
 								(nn = new EntryElement("Nickname","Nickname","")),
-								(st = new RootElement("Scout Types", myScoutTypes) {
+								(st = new RootElement("Den", myScoutTypes) {
 									myScoutTypesSection
 								}),
+								(mn = new EntryElement("Mom's Name","Mom's Name", "")),
+								(dn = new EntryElement("Dad's Name","Dad's Name", "")),
+								(ea = new EntryElement("Email Address","Email Address", "")),
+								(hp = new EntryElement("Home Phone", "(999) 999-9999", "")),
+								(cp = new EntryElement("Mobile Phone", "(999) 999-9999", "")),
 								new StringElement("Save",delegate {
-									CubScout newScout = new CubScout {FirstName = fn.Value.Trim(), LastName = ln.Value.Trim(), Nickname = nn.Value.Trim (), ScoutType = st.RadioSelected.ToString()};
+									CubScout newScout = new CubScout {FirstName = fn.Value.Trim(), LastName = ln.Value.Trim(), 
+										Nickname = nn.Value.Trim (), ScoutType = st.RadioSelected.ToString(), 
+										MomsName = mn.Value.Trim(), DadsName = dn.Value.Trim(), EmailAddress = ea.Value.Trim(),
+										HomePhone = hp.Value.Trim(), CellPhone = cp.Value.Trim()};
 									conn.InsertAsync (newScout).ContinueWith (t => {
 										Console.WriteLine ("New scout ID: {0}", newScout.Id);
 									});
@@ -112,6 +125,11 @@ namespace Pack957
 									ln.Value = "";
 									nn.Value = "";
 									st.RadioSelected = 0;
+									mn.Value = "";
+									dn.Value = "";
+									ea.Value = "";
+									hp.Value = "";
+									cp.Value = "";
 									this.NavigationController.PopViewControllerAnimated(true);
 								}),
 							},

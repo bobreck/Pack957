@@ -30,9 +30,23 @@ namespace Pack957
 			// Release any cached data, images, etc that aren't in use.
 		}
 
+		public void ResetIconsHandler(object sender, EventArgs e)
+		{
+			SetOriginalLocations();
+		}
+
 		public void FlyoutNavigationHandler(object sender, EventArgs e)
 		{
 			AppDelegate.Current.ViewController.ShowMenuView();
+		}
+
+		public void SetOriginalLocations()
+		{
+			imgTiger.Frame = new RectangleF(10,10,100,100);
+			imgWolf.Frame = new RectangleF(UIScreen.MainScreen.Bounds.Width-110,10,100,100);
+			imgCub.Frame = new RectangleF(UIScreen.MainScreen.Bounds.Width/2-50,UIScreen.MainScreen.Bounds.Height/2-100,100,100);
+			imgBear.Frame = new RectangleF(10,UIScreen.MainScreen.Bounds.Height-210,100,100);
+			imgWeblo.Frame = new RectangleF(UIScreen.MainScreen.Bounds.Width-110,UIScreen.MainScreen.Bounds.Height-210,100,100);
 		}
 
 		public override void ViewDidLoad ()
@@ -41,16 +55,22 @@ namespace Pack957
 
 			this.Title = "Cub Scout Logos";
 			this.NavigationItem.SetLeftBarButtonItem(new UIBarButtonItem(UIImage.FromBundle("icons/399-list1"), UIBarButtonItemStyle.Plain, FlyoutNavigationHandler), true);
+			this.NavigationItem.SetRightBarButtonItem(new UIBarButtonItem(UIImage.FromBundle("icons/332-rotate"), UIBarButtonItemStyle.Plain, ResetIconsHandler), true);
+			this.View.ClipsToBounds = true;
+
+//			UIGestureRecognizer e = new UIGestureRecognizer();
+//			if (e.GetType() == typeof(UISwipeGestureRecognizer))
+//				return;
 
 			imgTiger = new UIImageView(new RectangleF(10,10,100,100));
 			imgTiger.Image = UIImage.FromBundle("Tiger100");
-			imgWolf = new UIImageView(new RectangleF(this.View.Bounds.Width-110,10,100,100));
+			imgWolf = new UIImageView(new RectangleF(UIScreen.MainScreen.Bounds.Width-110,10,100,100));
 			imgWolf.Image = UIImage.FromBundle("wolf100");
-			imgCub = new UIImageView(new RectangleF(this.View.Bounds.Width/2-50,this.View.Bounds.Height/2-50,100,100));
+			imgCub = new UIImageView(new RectangleF(UIScreen.MainScreen.Bounds.Width/2-50,UIScreen.MainScreen.Bounds.Height/2-100,100,100));
 			imgCub.Image = UIImage.FromBundle("CubScouts100");
-			imgBear = new UIImageView(new RectangleF(10,this.View.Bounds.Height-110,100,100));
+			imgBear = new UIImageView(new RectangleF(10,UIScreen.MainScreen.Bounds.Height-210,100,100));
 			imgBear.Image = UIImage.FromBundle("bear100");
-			imgWeblo = new UIImageView(new RectangleF(this.View.Bounds.Width-110,this.View.Bounds.Height-110,100,100));
+			imgWeblo = new UIImageView(new RectangleF(UIScreen.MainScreen.Bounds.Width-110,UIScreen.MainScreen.Bounds.Height-210,100,100));
 			imgWeblo.Image = UIImage.FromBundle("weblos100");
 
 			this.View.AddSubview(imgCub);

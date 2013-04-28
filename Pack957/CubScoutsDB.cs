@@ -35,6 +35,11 @@ namespace Pack957
 		public string LastName { get; set; }
 		public string Nickname { get; set; }
 		public string ScoutType { get; set; }
+		public string MomsName { get; set; }
+		public string DadsName { get; set; }
+		public string EmailAddress { get; set; }
+		public string HomePhone { get; set; }
+		public string CellPhone { get; set; }
 	}
 }
 
