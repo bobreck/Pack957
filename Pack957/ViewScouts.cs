@@ -34,6 +34,56 @@ namespace Pack957
 			// Release any cached data, images, etc that aren't in use.
 		}
 
+		public override void ViewWillAppear (bool animated)
+		{
+			base.ViewWillAppear (animated);
+
+			try
+			{
+//				List<ScoutsTableItemGroup> tableItems = new List<ScoutsTableItemGroup>();
+//				ScoutsTableItemGroup tGroup;
+//				
+//				tGroup = new ScoutsTableItemGroup() {Name = scoutTitle, Footer = "" };
+//				string strScoutTypeNumber = GetScoutTypeNumber(ScoutType);
+//				if (strScoutTypeNumber != "")
+//				{
+//					var query = conn.Table<CubScout>().Where(v => v.ScoutType.StartsWith(strScoutTypeNumber)).OrderBy(x => x.LastName);
+//					query.ToListAsync().ContinueWith (t => {
+//						foreach (var scout in t.Result) {
+//							CubScout s = scout;
+//							if (s.Nickname.Trim() != "")
+//							{
+//								tmpScout = string.Format("{0} {1} ({2})", s.FirstName.Trim(), s.LastName.Trim(), s.Nickname.Trim());
+//							} 
+//							else
+//							{
+//								tmpScout = string.Format("{0} {1}", s.FirstName.Trim(), s.LastName.Trim());
+//							}
+//							tGroup.Items.Add(tmpScout);
+//						}
+//					});
+//				}
+//				tableItems.Add(tGroup);
+//				
+//				ScoutsTableSource ScoutData = new ScoutsTableSource(tableItems);
+//				tvScouts.Source = ScoutData;
+				//tvScouts.ReloadData();
+			}
+			catch (Exception ex)
+			{
+				using (UIAlertView myAlert = new UIAlertView())
+				{
+					myAlert.Message = ex.Message;
+					myAlert.Title = "Error";
+					myAlert.AddButton("OK");
+					myAlert.Show();
+				}
+			}
+			finally
+			{
+			}
+		}
+
 		private string GetScoutTypeNumber(string strScoutType)
 		{
 			switch (strScoutType)
@@ -94,7 +144,6 @@ namespace Pack957
 				}
 
 				svScouts = new UIScrollView(new RectangleF(0,0,this.View.Bounds.Width,this.View.Bounds.Height));
-				svScouts.ContentInset = new UIEdgeInsets(0, 0, 25, 0);
 				svScouts.UserInteractionEnabled = true;
 				svScouts.AlwaysBounceVertical = true;
 				svScouts.ScrollsToTop = true;
@@ -157,6 +206,8 @@ namespace Pack957
 				tvScouts.BackgroundView = null;
 				svScouts.BackgroundColor = UIColor.Clear;
 				this.View.BackgroundColor = UIColor.FromPatternImage(UIImage.FromBundle("backgrounds/Pattern_Cloth"));
+				svScouts.ContentSize = new SizeF(this.View.Bounds.Width,tvScouts.Frame.Bottom + 25);
+				svScouts.ContentInset = new UIEdgeInsets(0, 0, 25, 0);
 
 			}
 			catch (Exception ex)

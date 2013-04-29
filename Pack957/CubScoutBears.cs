@@ -17,7 +17,6 @@ namespace Pack957
 		SQLiteAsyncConnection conn;
 		Section secCurrentScouts;
 		ViewScout _vsc;
-		UITableView scoutTable;
 
 		public CubScoutBears () : base (UITableViewStyle.Grouped, null)
 		{
