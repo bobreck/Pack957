@@ -27,7 +27,9 @@ namespace Pack957
 			
 			this.NavigationBar.TintColor = UIColor.FromRGB(141,215,250);
 			this.NavigationItem.Title = "Weblos";
-			CubScoutWeblos _vc = new CubScoutWeblos();
+			//CubScoutWeblos _vc = new CubScoutWeblos();
+			ViewScouts _vc = new ViewScouts();
+			_vc.ScoutType = "Weblo";
 			this.PushViewController(_vc, true);
 		}
 	}

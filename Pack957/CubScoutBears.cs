@@ -23,49 +23,6 @@ namespace Pack957
 		{
 		}
 
-		public class CubScoutTableItemsGroup
-		{
-			public string Name {get; set;}
-			public string Footer {get; set;}
-			
-			public List<string> Items
-			{
-				get {return this._items; }
-				set {this._items = value; }
-			}				
-			protected List<string> _items = new List<string>();
-		}
-
-
-		public class scoutTableSource : UITableViewSource
-		{
-			protected string _cellIdentifier = "ScoutCell";
-			protected List<CubScoutTableItemsGroup> _tableItems;
-
-
-			public override int RowsInSection (UITableView tableview, int section)
-			{
-				return this._tableItems[section].Items.Count;
-			}
-
-			public override UITableViewCell GetCell (UITableView tableview, MonoTouch.Foundation.NSIndexPath indexPath)
-			{
-				UITableViewCell cell = tableview.DequeueReusableCell(this._cellIdentifier);
-				
-				if (cell == null)
-				{
-					cell = new UITableViewCell(UITableViewCellStyle.Subtitle, this._cellIdentifier);
-				}
-
-				if (cell.TextLabel.Text != "Add Scout")
-				{
-					cell.TextLabel.Text = this._tableItems[indexPath.Section].Items[indexPath.Row];
-					cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
-				}
-				return cell;
-			}
-		}
-
 		public override void LoadView ()
 		{
 			base.LoadView ();

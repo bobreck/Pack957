@@ -27,7 +27,9 @@ namespace Pack957
 			
 			this.NavigationBar.TintColor = UIColor.FromRGB(151,213,200);
 			this.NavigationItem.Title = "Bears";
-			CubScoutBears _vc = new CubScoutBears();
+			//CubScoutBears _vc = new CubScoutBears();
+			ViewScouts _vc = new ViewScouts();
+			_vc.ScoutType = "Bear";
 			this.PushViewController(_vc, true);
 		}
 	}

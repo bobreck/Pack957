@@ -159,6 +159,15 @@
       <DependentUpon>CubScoutLawOfThePackNavigation.cs</DependentUpon>
     </Compile>
     <Compile Include="ViewScout.cs" />
+    <Compile Include="ViewScouts.cs" />
+    <Compile Include="ViewScouts.designer.cs">
+      <DependentUpon>ViewScouts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddScout.cs" />
+    <Compile Include="AddAScout.cs" />
+    <Compile Include="AddAScout.designer.cs">
+      <DependentUpon>AddAScout.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Pack957ViewController.xib" />
@@ -174,6 +183,8 @@
     <InterfaceDefinition Include="CubScoutMottoNavigation.xib" />
     <InterfaceDefinition Include="CubScoutPromiseNavigation.xib" />
     <InterfaceDefinition Include="CubScoutLawOfThePackNavigation.xib" />
+    <InterfaceDefinition Include="ViewScouts.xib" />
+    <InterfaceDefinition Include="AddAScout.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
