@@ -365,8 +365,7 @@ namespace Pack957
 				myActionSheet.ShowInView(this.View);
 				myActionSheet.Frame = new RectangleF (0, UIScreen.MainScreen.Bounds.Height - 320, 
 				                                      actionSheetSize.Width, 320);
-				pickerDen.Frame = new RectangleF(0, 44, myActionSheet.Frame.Width, 
-				                         320 - 44);
+				pickerDen.Frame = new RectangleF(0, 44, myActionSheet.Frame.Width, 216);
 			};
 			myScrollView.AddSubview(txtDen);
 

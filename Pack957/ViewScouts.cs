@@ -99,11 +99,8 @@ namespace Pack957
 				string strScoutTypeNumber = GetScoutTypeNumber(ScoutType);
 				if (strScoutTypeNumber != "")
 				{
-					//var query = conn.Table<CubScout>().Where(v => v.ScoutType.StartsWith(strScoutTypeNumber)).OrderBy(x => x.LastName);
 					var query = conn2.Table<CubScout>().Where(v => v.ScoutType.StartsWith(strScoutTypeNumber)).OrderBy(x => x.LastName);
 					foreach (var scout in query) {
-					//query.ToListAsync().ContinueWith (t => {
-					//	foreach (var scout in t.Result) {
 						CubScout s = scout;
 						if (s.Nickname.Trim() != "")
 						{
@@ -116,7 +113,6 @@ namespace Pack957
 						tGroup.Items.Add(tmpScout);
 						tGroup.IDs.Add(s.Id.ToString());
 					}
-					//});
 				}
 				tableItems.Add(tGroup);
 				ScoutsTableSource ScoutData = new ScoutsTableSource(tableItems);
@@ -171,12 +167,8 @@ namespace Pack957
 				myDB = new CubScoutsDB();
 				folder = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
 				conn2 = new SQLiteConnection(System.IO.Path.Combine (folder, "CubScouts.db"));
-				//conn = new SQLiteAsyncConnection (System.IO.Path.Combine (folder, "CubScouts.db"));
 
 				if (!myDB.TableExists("CubScout")) {
-//					conn.CreateTableAsync<CubScout>().ContinueWith (t => {
-//						Console.WriteLine ("Table created!");
-//					});
 					conn2.CreateTable<CubScout>();
 					Console.WriteLine ("Table created!");
 				}
@@ -371,8 +363,6 @@ namespace Pack957
 			editArgs.ScoutAction = "EditScout";
 			EditScout(this, editArgs);
 			tableView.DeselectRow(indexPath, true);
-//			new UIAlertView("DetailDisclosureButton Touched"
-//			                , _tableItems[indexPath.Section].Items[indexPath.Row], null, "OK", null).Show();
 		}
 
 		public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
