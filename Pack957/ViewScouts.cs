@@ -7,6 +7,7 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using System.Linq;
 using SQLite;
+using MonoTouch.CoreGraphics;
 
 namespace Pack957
 {
@@ -16,7 +17,8 @@ namespace Pack957
 		string scoutTitle;
 		UITableView tvScouts;
 		UIScrollView svScouts;
-		SQLiteAsyncConnection conn;
+		//SQLiteAsyncConnection conn;
+		SQLiteConnection conn2;
 		string folder;
 		CubScoutsDB myDB;
 		string tmpScout;
@@ -34,54 +36,15 @@ namespace Pack957
 			// Release any cached data, images, etc that aren't in use.
 		}
 
+		public override void ViewDidAppear (bool animated)
+		{
+			base.ViewDidAppear (animated);
+		}
+
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);
-
-			try
-			{
-//				List<ScoutsTableItemGroup> tableItems = new List<ScoutsTableItemGroup>();
-//				ScoutsTableItemGroup tGroup;
-//				
-//				tGroup = new ScoutsTableItemGroup() {Name = scoutTitle, Footer = "" };
-//				string strScoutTypeNumber = GetScoutTypeNumber(ScoutType);
-//				if (strScoutTypeNumber != "")
-//				{
-//					var query = conn.Table<CubScout>().Where(v => v.ScoutType.StartsWith(strScoutTypeNumber)).OrderBy(x => x.LastName);
-//					query.ToListAsync().ContinueWith (t => {
-//						foreach (var scout in t.Result) {
-//							CubScout s = scout;
-//							if (s.Nickname.Trim() != "")
-//							{
-//								tmpScout = string.Format("{0} {1} ({2})", s.FirstName.Trim(), s.LastName.Trim(), s.Nickname.Trim());
-//							} 
-//							else
-//							{
-//								tmpScout = string.Format("{0} {1}", s.FirstName.Trim(), s.LastName.Trim());
-//							}
-//							tGroup.Items.Add(tmpScout);
-//						}
-//					});
-//				}
-//				tableItems.Add(tGroup);
-//				
-//				ScoutsTableSource ScoutData = new ScoutsTableSource(tableItems);
-//				tvScouts.Source = ScoutData;
-				//tvScouts.ReloadData();
-			}
-			catch (Exception ex)
-			{
-				using (UIAlertView myAlert = new UIAlertView())
-				{
-					myAlert.Message = ex.Message;
-					myAlert.Title = "Error";
-					myAlert.AddButton("OK");
-					myAlert.Show();
-				}
-			}
-			finally
-			{
-			}
+			LoadScoutData();
 		}
 
 		private string GetScoutTypeNumber(string strScoutType)
@@ -125,87 +88,43 @@ namespace Pack957
 			this.NavigationController.PushViewController(new AddAScout(), true);
 		}
 
-		public override void ViewDidLoad ()
+		public void LoadScoutData()
 		{
-			base.ViewDidLoad ();
-
 			try
 			{
-				this.NavigationItem.SetLeftBarButtonItem(new UIBarButtonItem(UIImage.FromBundle("icons/399-list1"), UIBarButtonItemStyle.Plain, FlyoutNavigationHandler), true);
-				this.NavigationItem.SetRightBarButtonItem(new UIBarButtonItem(UIBarButtonSystemItem.Edit, EditButtonHandler), true);
-
-				myDB = new CubScoutsDB();
-				folder = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
-				conn = new SQLiteAsyncConnection (System.IO.Path.Combine (folder, "CubScouts.db"));
-				if (!myDB.TableExists("CubScout")) {
-					conn.CreateTableAsync<CubScout>().ContinueWith (t => {
-						Console.WriteLine ("Table created!");
-					});
-				}
-
-				svScouts = new UIScrollView(new RectangleF(0,0,this.View.Bounds.Width,this.View.Bounds.Height));
-				svScouts.UserInteractionEnabled = true;
-				svScouts.AlwaysBounceVertical = true;
-				svScouts.ScrollsToTop = true;
-				this.View.AddSubview(svScouts);
-				        
-				tvAdd = new UITableView(new RectangleF(10,10,svScouts.Bounds.Width-20, 90), UITableViewStyle.Grouped);
-				tvAdd.BackgroundView = null;
-
-				List<AddTableItemGroup> addTableItems = new List<AddTableItemGroup>();
-				AddTableItemGroup aGroup;
-				aGroup = new AddTableItemGroup() {Name = "Add", Footer = "" };
-				aGroup.Items.Add ("Add Scout");
-				addTableItems.Add(aGroup);
-				AddTableSource AddData = new AddTableSource(addTableItems);
-				tvAdd.Source = AddData;
-				svScouts.AddSubview(tvAdd);
-
-				AddData.AddScoutPage += HandleAddDataAddScoutPage;
-
-				tvScouts = new UITableView(new RectangleF(10,100,svScouts.Bounds.Width-20,svScouts.Bounds.Height-20), UITableViewStyle.Grouped);
-				svScouts.AddSubview(tvScouts);
-
-				if (ScoutType != null)
-				{
-					scoutTitle = string.Format("{0} Scouts", ScoutType.Trim());
-				}
-				else
-				{
-					scoutTitle = "Scouts";
-				}
-				this.Title = scoutTitle;
-
 				List<ScoutsTableItemGroup> tableItems = new List<ScoutsTableItemGroup>();
 				ScoutsTableItemGroup tGroup;
-
+				
 				tGroup = new ScoutsTableItemGroup() {Name = scoutTitle, Footer = "" };
 				string strScoutTypeNumber = GetScoutTypeNumber(ScoutType);
 				if (strScoutTypeNumber != "")
 				{
-					var query = conn.Table<CubScout>().Where(v => v.ScoutType.StartsWith(strScoutTypeNumber)).OrderBy(x => x.LastName);
-					query.ToListAsync().ContinueWith (t => {
-						foreach (var scout in t.Result) {
-							CubScout s = scout;
-							if (s.Nickname.Trim() != "")
-							{
-								tmpScout = string.Format("{0} {1} ({2})", s.FirstName.Trim(), s.LastName.Trim(), s.Nickname.Trim());
-							} 
-							else
-							{
-								tmpScout = string.Format("{0} {1}", s.FirstName.Trim(), s.LastName.Trim());
-							}
-							tGroup.Items.Add(tmpScout);
+					//var query = conn.Table<CubScout>().Where(v => v.ScoutType.StartsWith(strScoutTypeNumber)).OrderBy(x => x.LastName);
+					var query = conn2.Table<CubScout>().Where(v => v.ScoutType.StartsWith(strScoutTypeNumber)).OrderBy(x => x.LastName);
+					foreach (var scout in query) {
+					//query.ToListAsync().ContinueWith (t => {
+					//	foreach (var scout in t.Result) {
+						CubScout s = scout;
+						if (s.Nickname.Trim() != "")
+						{
+							tmpScout = string.Format("{0} {1} ({2})", s.FirstName.Trim(), s.LastName.Trim(), s.Nickname.Trim());
+						} 
+						else
+						{
+							tmpScout = string.Format("{0} {1}", s.FirstName.Trim(), s.LastName.Trim());
 						}
-					});
+						tGroup.Items.Add(tmpScout);
+						tGroup.IDs.Add(s.Id.ToString());
+					}
+					//});
 				}
 				tableItems.Add(tGroup);
-
 				ScoutsTableSource ScoutData = new ScoutsTableSource(tableItems);
 				tvScouts.Source = ScoutData;
-				tvScouts.BackgroundView = null;
-				svScouts.BackgroundColor = UIColor.Clear;
-				this.View.BackgroundColor = UIColor.FromPatternImage(UIImage.FromBundle("backgrounds/Pattern_Cloth"));
+
+				ScoutData.DeleteItemReload += HandleTableDataDeleteItemReload;		
+
+				tvScouts.Frame = new RectangleF(tvScouts.Frame.X,tvScouts.Frame.Y,tvScouts.Frame.Width,tvScouts.Frame.Bottom);
 				svScouts.ContentSize = new SizeF(this.View.Bounds.Width,tvScouts.Frame.Bottom + 25);
 				svScouts.ContentInset = new UIEdgeInsets(0, 0, 25, 0);
 
@@ -222,9 +141,97 @@ namespace Pack957
 			}
 			finally
 			{
-
+				
 			}
 		}
+
+		void HandleTableDataDeleteItemReload (object sender, EventArgs e)
+		{
+			LoadScoutData();
+			tvScouts.ReloadData();
+		}
+
+		public override void ViewDidLoad ()
+		{
+			base.ViewDidLoad ();
+			try
+			{
+				this.NavigationItem.SetLeftBarButtonItem(new UIBarButtonItem(UIImage.FromBundle("icons/399-list1"), UIBarButtonItemStyle.Plain, FlyoutNavigationHandler), true);
+				this.NavigationItem.SetRightBarButtonItem(new UIBarButtonItem(UIBarButtonSystemItem.Edit, EditButtonHandler), true);
+				
+				myDB = new CubScoutsDB();
+				folder = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
+				conn2 = new SQLiteConnection(System.IO.Path.Combine (folder, "CubScouts.db"));
+				//conn = new SQLiteAsyncConnection (System.IO.Path.Combine (folder, "CubScouts.db"));
+
+				if (!myDB.TableExists("CubScout")) {
+//					conn.CreateTableAsync<CubScout>().ContinueWith (t => {
+//						Console.WriteLine ("Table created!");
+//					});
+					conn2.CreateTable<CubScout>();
+					Console.WriteLine ("Table created!");
+				}
+				
+				svScouts = new UIScrollView(new RectangleF(0,0,this.View.Bounds.Width,this.View.Bounds.Height));
+				svScouts.UserInteractionEnabled = true;
+				svScouts.AlwaysBounceVertical = true;
+				svScouts.ScrollsToTop = true;
+				this.View.AddSubview(svScouts);
+				
+				tvAdd = new UITableView(new RectangleF(10,10,svScouts.Bounds.Width-20, 90), UITableViewStyle.Grouped);
+				tvAdd.BackgroundView = null;
+				
+				List<AddTableItemGroup> addTableItems = new List<AddTableItemGroup>();
+				AddTableItemGroup aGroup;
+				aGroup = new AddTableItemGroup() {Name = "Add", Footer = "" };
+				aGroup.Items.Add ("Add Scout");
+				addTableItems.Add(aGroup);
+				AddTableSource AddData = new AddTableSource(addTableItems);
+				tvAdd.Source = AddData;
+				tvAdd.ScrollEnabled = false;
+				svScouts.AddSubview(tvAdd);
+				
+				AddData.AddScoutPage += HandleAddDataAddScoutPage;
+				
+				tvScouts = new UITableView(new RectangleF(10,100,svScouts.Bounds.Width-20,this.View.Bounds.Height), UITableViewStyle.Grouped);
+				svScouts.AddSubview(tvScouts);
+				
+				if (ScoutType != null)
+				{
+					scoutTitle = string.Format("{0} Scouts", ScoutType.Trim());
+				}
+				else
+				{
+					scoutTitle = "Scouts";
+				}
+				this.Title = scoutTitle;
+
+				tvScouts.AutoresizingMask = UIViewAutoresizing.All;
+				tvScouts.BackgroundView = null;
+				tvScouts.ScrollEnabled = false;
+
+				svScouts.BackgroundColor = UIColor.Clear;
+				this.View.BackgroundColor = UIColor.FromPatternImage(UIImage.FromBundle("backgrounds/Pattern_Cloth"));
+
+				
+			}
+			catch (Exception ex)
+			{
+				using (UIAlertView myAlert = new UIAlertView())
+				{
+					myAlert.Message = ex.Message;
+					myAlert.Title = "Error";
+					myAlert.AddButton("OK");
+					myAlert.Show();
+				}
+			}
+			finally
+			{
+				
+			}
+		}
+
+
 	}
 
 	public class AddTableItemGroup
@@ -302,17 +309,31 @@ namespace Pack957
 	{
 		public string Name {get; set;}
 		public string Footer {get; set;}
-		
+
+		public List<string> IDs
+		{
+			get {return this._IDs; }
+			set {this._IDs = value; }
+		}
+
 		public List<string> Items
 		{
 			get {return this._items; }
 			set {this._items = value; }
 		}				
+
+		protected List<string> _IDs = new List<string>();
 		protected List<string> _items = new List<string>();
 	}
 
 	public class ScoutsTableSource : UITableViewSource
 	{
+		//SQLiteAsyncConnection conn;
+		SQLiteConnection conn2;
+		string folder;
+
+		public delegate void DeleteItemReloadHandler(object sender, EventArgs e);
+		public event DeleteItemReloadHandler DeleteItemReload = delegate {};
 		protected List<ScoutsTableItemGroup> _tableItems;
 		protected string _cellIdentifier = "ScoutCell";
 		public ScoutsTableSource (List<ScoutsTableItemGroup> items) {this._tableItems = items; }
@@ -360,9 +381,34 @@ namespace Pack957
 			}
 			
 			cell.TextLabel.Text = this._tableItems[indexPath.Section].Items[indexPath.Row];
-			cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
+			cell.Accessory = UITableViewCellAccessory.DetailDisclosureButton;
 			return cell;
 		}
+
+		public override void CommitEditingStyle (UITableView tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath indexPath)
+		{
+			folder = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
+			//conn = new SQLiteAsyncConnection (System.IO.Path.Combine (folder, "CubScouts.db"));
+			conn2 = new SQLiteConnection(System.IO.Path.Combine (folder, "CubScouts.db"),false);
+			switch (editingStyle)
+			{
+			case UITableViewCellEditingStyle.Delete:
+				CubScout deleteScout = new CubScout {
+					Id = Convert.ToInt32(_tableItems[indexPath.Section].IDs[indexPath.Row].ToString())
+				};
+				conn2.Delete(deleteScout);
+//				conn.DeleteAsync (deleteScout).ContinueWith (t => {
+//					Console.WriteLine ("Deleted scout ID: {0}", deleteScout.Id);
+//				});
+				DeleteItemReload(this, new EventArgs());	
+				break;
+			case UITableViewCellEditingStyle.Insert:
+				break;
+			case UITableViewCellEditingStyle.None:
+				break;
+			}
+		}
+
 	}
 
 }

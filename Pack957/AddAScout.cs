@@ -31,7 +31,6 @@ namespace Pack957
 		NSObject _keyboardObserverWillHide;
 		SQLiteAsyncConnection conn;
 		string folder;
-		string strDenNumber;
 
 		public AddAScout () : base ("AddAScout", null)
 		{
@@ -114,36 +113,128 @@ namespace Pack957
 			// Release any cached data, images, etc that aren't in use.
 		}
 
+		protected void ShowError(string field)
+		{
+			using (UIAlertView myAlert = new UIAlertView())
+			{
+				myAlert.Message = string.Format("{0} is a required field.", field);
+				myAlert.Title = "Validation Error";
+				myAlert.AddButton("OK");
+				myAlert.Show();
+			}
+		}
+
 		protected void SaveButtonHandler(object sender, EventArgs e)
 		{
-			switch (txtDen.Text)
+			string strFirstName;
+			string strLastName;
+			string strNickName;
+			string strDenNumber;
+			string strMom;
+			string strDad;
+			string strEmail;
+			string strHome;
+			string strMobile;
+
+			try
 			{
-			case "Tiger":
-				strDenNumber = "0";
-				break;
-			case "Wolf":
-				strDenNumber = "1";
-				break;
-			case "Bear":
-				strDenNumber = "2";
-				break;
-			case "Weblo":
-				strDenNumber = "3";
-				break;
-			default:
-				strDenNumber = "";
-				break;
+				if ((txtFirstName.Text == null) || (txtFirstName.Text.ToString().Trim() == "")) {
+					ShowError("First Name");
+					return;
+				}else{
+					strFirstName = txtFirstName.Text.Trim ();
+				}
+				if ((txtLastName.Text == null) || (txtLastName.Text.ToString().Trim() == "")) {
+					ShowError("Last Name");
+					return;
+				}else{
+					strLastName = txtLastName.Text.Trim();
+				}
+				if ((txtNickName.Text == null) || (txtNickName.Text.ToString().Trim() == "")) {
+					strNickName = "";
+				}else{
+					strNickName = txtNickName.Text.ToString().Trim();
+				}
+				if ((txtDen.Text == null) || (txtDen.Text.ToString().Trim() == "")) {
+					ShowError("Den");
+					return;
+				}else{
+					switch (txtDen.Text)
+					{
+					case "Tiger":
+						strDenNumber = "0";
+						break;
+					case "Wolf":
+						strDenNumber = "1";
+						break;
+					case "Bear":
+						strDenNumber = "2";
+						break;
+					case "Weblo":
+						strDenNumber = "3";
+						break;
+					default:
+						strDenNumber = "";
+						break;
+					}
+				}
+				if ((txtMomName.Text == null) || (txtMomName.Text.ToString().Trim() == "")) {
+					strMom = "";
+				}else{
+					strMom = txtMomName.Text.ToString().Trim();
+				}
+				if ((txtDadName.Text == null) || (txtDadName.Text.ToString().Trim() == "")) {
+					strDad = "";
+				}else{
+					strDad = txtDadName.Text.ToString().Trim();
+				}
+				if ((txtEmail.Text == null) || (txtEmail.Text.ToString().Trim() == "")) {
+					strEmail = "";
+				}else{
+					strEmail = txtEmail.Text.ToString().Trim();
+				}
+				if ((txtHomePhone.Text == null) || (txtHomePhone.Text.ToString().Trim() == "")) {
+					strHome = "";
+				}else{
+					strHome = txtHomePhone.Text.ToString().Trim();
+				}
+				if ((txtMobilePhone.Text == null) || (txtMobilePhone.Text.ToString().Trim() == "")) {
+					strMobile = "";
+				}else{
+					strMobile = txtMobilePhone.Text.ToString().Trim();
+				}
+
+				folder = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
+				conn = new SQLiteAsyncConnection (System.IO.Path.Combine (folder, "CubScouts.db"));
+				CubScout newScout = new CubScout {
+					FirstName = strFirstName, 
+					LastName = strLastName, 
+					Nickname = strNickName, 
+					ScoutType = strDenNumber, 
+					MomsName = strMom, 
+					DadsName = strDad, 
+					EmailAddress = strEmail,
+					HomePhone = strHome, 
+					CellPhone = strMobile
+				};
+				conn.InsertAsync (newScout).ContinueWith (t => {
+					Console.WriteLine ("New scout ID: {0}", newScout.Id);
+				});
+				this.NavigationController.PopViewControllerAnimated(true);
 			}
-			folder = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
-			conn = new SQLiteAsyncConnection (System.IO.Path.Combine (folder, "CubScouts.db"));
-			CubScout newScout = new CubScout {FirstName = txtFirstName.Text.Trim(), LastName = txtLastName.Text.Trim(), 
-				Nickname = txtNickName.Text.Trim (), ScoutType = strDenNumber, 
-				MomsName = txtMomName.Text.Trim(), DadsName = txtDadName.Text.Trim(), EmailAddress = txtEmail.Text.Trim(),
-				HomePhone = txtHomePhone.Text.Trim(), CellPhone = txtMobilePhone.Text.Trim()};
-			conn.InsertAsync (newScout).ContinueWith (t => {
-				Console.WriteLine ("New scout ID: {0}", newScout.Id);
-			});
-			this.NavigationController.PopViewControllerAnimated(true);
+			catch (Exception ex)
+			{
+				using (UIAlertView myAlert = new UIAlertView())
+				{
+					myAlert.Message = ex.Message;
+					myAlert.Title = "Error";
+					myAlert.AddButton("OK");
+					myAlert.Show();
+				}
+			}
+			finally
+			{
+			}
 		}
 
 		public override void ViewDidLoad ()
