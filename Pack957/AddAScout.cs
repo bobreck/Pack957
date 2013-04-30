@@ -29,8 +29,11 @@ namespace Pack957
 		UITextField txtMobilePhone;
 		NSObject _keyboardObserverWillShow;
 		NSObject _keyboardObserverWillHide;
-		SQLiteAsyncConnection conn;
+		//SQLiteAsyncConnection conn;
+		SQLiteConnection conn2;
 		string folder;
+		public string ScoutID { get; set; }
+		public string ScoutAction { get; set; }
 
 		public AddAScout () : base ("AddAScout", null)
 		{
@@ -205,7 +208,8 @@ namespace Pack957
 				}
 
 				folder = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
-				conn = new SQLiteAsyncConnection (System.IO.Path.Combine (folder, "CubScouts.db"));
+				//conn = new SQLiteAsyncConnection (System.IO.Path.Combine (folder, "CubScouts.db"));
+				conn2 = new SQLiteConnection(System.IO.Path.Combine (folder, "CubScouts.db"));
 				CubScout newScout = new CubScout {
 					FirstName = strFirstName, 
 					LastName = strLastName, 
@@ -217,9 +221,20 @@ namespace Pack957
 					HomePhone = strHome, 
 					CellPhone = strMobile
 				};
-				conn.InsertAsync (newScout).ContinueWith (t => {
+//				conn.InsertAsync (newScout).ContinueWith (t => {
+//					Console.WriteLine ("New scout ID: {0}", newScout.Id);
+//				});
+				if (ScoutAction != "EditScout")
+				{
+					conn2.Insert (newScout);
 					Console.WriteLine ("New scout ID: {0}", newScout.Id);
-				});
+				}
+				else
+				{
+					newScout.Id = Convert.ToInt32(ScoutID);
+					conn2.Update(newScout);
+					Console.WriteLine ("Updated scout ID: {0}", newScout.Id);
+				}
 				this.NavigationController.PopViewControllerAnimated(true);
 			}
 			catch (Exception ex)
@@ -430,6 +445,46 @@ namespace Pack957
 			txtMobilePhone.ClearButtonMode = UITextFieldViewMode.WhileEditing;
 			myScrollView.AddSubview(txtMobilePhone);
 
+			if (ScoutAction == "EditScout")
+			{
+				FetchScoutForEditing(ScoutID);
+			}
+		}
+
+		protected void FetchScoutForEditing(string ScoutID)
+		{
+			folder = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
+			conn2 = new SQLiteConnection(System.IO.Path.Combine (folder, "CubScouts.db"));
+			var query = conn2.Table<CubScout>().Where(v => v.Id.Equals(ScoutID));
+			foreach (var scout in query) {
+				CubScout s = scout;
+				txtFirstName.Text = s.FirstName;
+				txtLastName.Text = s.LastName;
+				txtNickName.Text = s.Nickname;
+				txtDen.Text = GetScoutTypeName(s.ScoutType);
+				txtMomName.Text = s.MomsName;
+				txtDadName.Text = s.DadsName;
+				txtEmail.Text = s.EmailAddress;
+				txtHomePhone.Text = s.HomePhone;
+				txtMobilePhone.Text = s.CellPhone;
+			}
+		}
+
+		protected string GetScoutTypeName(string ScoutTypeID)
+		{
+			switch (ScoutTypeID)
+			{
+			case "0":
+				return "Tiger";
+			case "1":
+				return "Wolf";
+			case "2":
+				return "Bear";
+			case "3":
+				return "Weblo";
+			default:
+				return "";
+			}
 		}
 
 		public void PickerButtonCancelHandler(object sender, EventArgs e)

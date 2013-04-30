@@ -158,7 +158,6 @@
     <Compile Include="ViewScouts.designer.cs">
       <DependentUpon>ViewScouts.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddScout.cs" />
     <Compile Include="AddAScout.cs" />
     <Compile Include="AddAScout.designer.cs">
       <DependentUpon>AddAScout.cs</DependentUpon>

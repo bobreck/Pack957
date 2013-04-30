@@ -123,6 +123,7 @@ namespace Pack957
 				tvScouts.Source = ScoutData;
 
 				ScoutData.DeleteItemReload += HandleTableDataDeleteItemReload;		
+				ScoutData.EditScout += HandleTableDataEditScout;
 
 				tvScouts.Frame = new RectangleF(tvScouts.Frame.X,tvScouts.Frame.Y,tvScouts.Frame.Width,tvScouts.Frame.Bottom);
 				svScouts.ContentSize = new SizeF(this.View.Bounds.Width,tvScouts.Frame.Bottom + 25);
@@ -143,6 +144,14 @@ namespace Pack957
 			{
 				
 			}
+		}
+
+		void HandleTableDataEditScout(object sender, EditScoutEventArgs e)
+		{
+			AddAScout myEditScout = new AddAScout();
+			myEditScout.ScoutID = e.ScoutID;
+			myEditScout.ScoutAction = e.ScoutAction;
+			this.NavigationController.PushViewController(myEditScout, true);
 		}
 
 		void HandleTableDataDeleteItemReload (object sender, EventArgs e)
@@ -192,7 +201,7 @@ namespace Pack957
 				svScouts.AddSubview(tvAdd);
 				
 				AddData.AddScoutPage += HandleAddDataAddScoutPage;
-				
+
 				tvScouts = new UITableView(new RectangleF(10,100,svScouts.Bounds.Width-20,this.View.Bounds.Height), UITableViewStyle.Grouped);
 				svScouts.AddSubview(tvScouts);
 				
@@ -332,6 +341,8 @@ namespace Pack957
 		SQLiteConnection conn2;
 		string folder;
 
+		public delegate void EditScoutHandler(object sender, EditScoutEventArgs e);
+		public event EditScoutHandler EditScout = delegate{};
 		public delegate void DeleteItemReloadHandler(object sender, EventArgs e);
 		public event DeleteItemReloadHandler DeleteItemReload = delegate {};
 		protected List<ScoutsTableItemGroup> _tableItems;
@@ -353,21 +364,23 @@ namespace Pack957
 			return this._tableItems[section].Footer;
 		}
 
+		public override void AccessoryButtonTapped (UITableView tableView, NSIndexPath indexPath)
+		{
+			EditScoutEventArgs editArgs = new EditScoutEventArgs();
+			editArgs.ScoutID = _tableItems[indexPath.Section].IDs[indexPath.Row]; 
+			editArgs.ScoutAction = "EditScout";
+			EditScout(this, editArgs);
+			tableView.DeselectRow(indexPath, true);
+//			new UIAlertView("DetailDisclosureButton Touched"
+//			                , _tableItems[indexPath.Section].Items[indexPath.Row], null, "OK", null).Show();
+		}
+
 		public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 		{	
-			UIAlertView myAlert = new UIAlertView();					
-			var SelectedItemName = this._tableItems[indexPath.Section].Items[indexPath.Row];
-			switch (SelectedItemName)
-			{
-			case "Add Scout":
-				break;  
-			default:
-				myAlert = new UIAlertView();
-				myAlert.Message = "Error: No handler for this item.";
-				myAlert.AddButton("OK");
-				myAlert.Show();
-				break;  
-			}			
+			EditScoutEventArgs editArgs = new EditScoutEventArgs();
+			editArgs.ScoutID = _tableItems[indexPath.Section].IDs[indexPath.Row]; 
+			editArgs.ScoutAction = "EditScout";
+			EditScout(this, editArgs);
 			tableView.DeselectRow(indexPath, true);
 		}
 		
@@ -388,7 +401,6 @@ namespace Pack957
 		public override void CommitEditingStyle (UITableView tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath indexPath)
 		{
 			folder = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
-			//conn = new SQLiteAsyncConnection (System.IO.Path.Combine (folder, "CubScouts.db"));
 			conn2 = new SQLiteConnection(System.IO.Path.Combine (folder, "CubScouts.db"),false);
 			switch (editingStyle)
 			{
@@ -397,9 +409,6 @@ namespace Pack957
 					Id = Convert.ToInt32(_tableItems[indexPath.Section].IDs[indexPath.Row].ToString())
 				};
 				conn2.Delete(deleteScout);
-//				conn.DeleteAsync (deleteScout).ContinueWith (t => {
-//					Console.WriteLine ("Deleted scout ID: {0}", deleteScout.Id);
-//				});
 				DeleteItemReload(this, new EventArgs());	
 				break;
 			case UITableViewCellEditingStyle.Insert:
@@ -409,6 +418,16 @@ namespace Pack957
 			}
 		}
 
+	}
+
+	public class EditScoutEventArgs : EventArgs
+	{
+		public NSIndexPath indexPath {get; set; }
+		public string ScoutID {get;set;}
+		public string ScoutAction {get;set;}
+		public EditScoutEventArgs () : base()
+		{
+		}
 	}
 
 }
