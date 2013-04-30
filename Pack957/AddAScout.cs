@@ -344,11 +344,14 @@ namespace Pack957
 				//prevent keyboard from popping up
 				txtDen.ResignFirstResponder();
 				txtDen.InputView = pickerDen;
-				actionSheetSize = new SizeF (this.View.Frame.Width, pickerDen.Frame.Height + toolbarDen.Frame.Height);
-				RectangleF actionSheetFrame = new RectangleF (0, this.View.Frame.Height - actionSheetSize.Height, actionSheetSize.Width, actionSheetSize.Height);
+				actionSheetSize = new SizeF (this.View.Frame.Width,364);
+//				RectangleF actionSheetFrame = new RectangleF (0, this.View.Bounds.Height - actionSheetSize.Height, 
+//				                                              actionSheetSize.Width, actionSheetSize.Height);
 				myActionSheet.ShowInView(this.View);
-				myActionSheet.Frame = actionSheetFrame;
-				pickerDen.Frame = new RectangleF(0, toolbarDen.Frame.Height, myActionSheet.Frame.Width, myActionSheet.Frame.Height - toolbarDen.Frame.Height);
+				myActionSheet.Frame = new RectangleF (0, UIScreen.MainScreen.Bounds.Height - 320, 
+				                                      actionSheetSize.Width, 320);
+				pickerDen.Frame = new RectangleF(0, 44, myActionSheet.Frame.Width, 
+				                         320 - 44);
 			};
 			myScrollView.AddSubview(txtDen);
 
